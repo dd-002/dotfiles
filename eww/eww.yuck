@@ -1,0 +1,426 @@
+(defpoll weather
+	:interval "1000s"
+	'echo $(./eww-scripts/weather/weather.sh) | jq'
+)
+
+(defpoll time
+	:interval "1s"
+	'date +%H:%M:%S'
+)
+
+(defpoll time-additional
+	:interval "10000"
+	'date +"%Y %B %d"'
+)
+
+
+(defwindow powermenu
+           :monitor 0
+           :geometry (geometry 
+                               :width "50%"
+                               :height "50%"
+                               :anchor "center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :stacking "overlay"
+	   :focusable true
+	   :exclusive true
+(powermenuwidget)
+  )
+
+(defwidget powermenuwidget []
+	(box
+		:class "powermenucontainer"
+		(box
+			:class "powermenucontainerleft"
+			:orientation 'v'
+			:space-evenly false
+			;;search bar
+			(powermenusearchbar)
+
+
+
+
+			(scroll
+				:height 450
+				(box
+			:class "powermenuitemscontainer"
+			:orientation "v"
+			:space-evenly true
+			(powermenuwidgetitem
+			:name "Dipayan"
+			)
+			(powermenuwidgetitem
+			:name "Subinita"
+			)
+			(powermenuwidgetitem
+			:name "Dipayan"
+			)
+			(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)
+			(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)
+				(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)	(powermenuwidgetitem
+			:name "Dipayan"
+			)
+				(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)(powermenuwidgetitem
+			:name "Dipayan"
+			)
+
+		)
+			)
+		)
+
+		(box    
+			:class "powermenucontainerright"
+			:space-evenly false
+			:orientation "h"
+			(box
+				:class "powermenucontainerrightleft"
+				:orientation "vertical"
+				:space-evenly false
+				(timewidgetcontainer)
+				(weatherwidgetcontainer)
+				(battery 
+				:classname {EWW_BATTERY.BAT0.capacity>90?"batteryprogress-full":EWW_BATTERY.BAT0.capacity>50?"batteryprogress-notfull":EWW_BATTERY.BAT0.capacity>20?"batteryprogress-low":"batteryprogress-critical"}
+                                :batteryindicator {EWW_BATTERY.BAT0.capacity>90?"󰁹":EWW_BATTERY.BAT0.capacity>50?"󰁿":EWW_BATTERY.BAT0.capacity>20?"󰁻":"󰁺"}
+				)
+				(box 
+					:orientation "h"
+					(systemmonitor)
+					(sliders)
+				)
+				(player)
+											
+			)
+		)
+	)
+)
+
+(defwidget powermenuwidgetitem [name ?binary]
+	(button
+		:class "powermenuwidgetitem"
+		:onclick "exec firefox"
+			:height 50
+
+		(box
+			:halign "start"
+			name
+		)
+	)
+	
+)
+
+(defwidget powermenusearchbar []
+	(box
+		:height 60
+		:class "searchcontainer"
+		:orientation "h"
+		:space-evenly false
+		(input
+			
+			:class "powermenusearchinput"
+			:width 450
+		)
+		(button
+			:class "powermenusearchbutton"
+			:height 60
+			:width 5
+			(box
+			"Click"
+			)
+		)
+	)
+)
+
+
+
+;;time widget
+(defpoll time-progress
+	:interval "1s"
+	"./eww-scripts/get-seconds.sh"
+
+)
+
+(defwidget timewidgetcontainer[]
+	(box
+		:class "timewidgetcontainer"
+		:space-evenly false
+		:orientation "v"
+		
+		;;Shows current time
+		(box
+			:class "time"
+			time
+		)
+
+
+	;; Uncomment fo time progress bar
+		(progress
+			:class "progresstime"
+			:value time-progress
+		)	
+		
+                ;;Shows date and year
+		(box
+			:class "time-additional"
+			time-additional
+
+		)
+
+	)
+
+)
+
+
+
+;;weather widget
+(defwidget weatherwidgetcontainer[]
+	(box
+		:class "weatherwidgetcontainer"
+		:space-evenly false
+		:orientation "h"
+		(image
+			:path "./eww-scripts/weather/assets/${weather["code"]}.png"
+			:image-width: 50
+			:image-height 50
+		)
+		(box
+			:class "temperature"
+			{weather.temp}
+		)
+		(box
+			:class "weatheradditional"
+			:orientation "v"
+			": ${weather.precp}"
+			": ${weather.rh}"
+			": ${weather.wind_speed}"
+			": ${weather.wind_speed}"
+		)
+
+	)
+)
+
+
+
+;;defining variables
+(defpoll uptime
+	:interval "100s"
+	"./eww-scripts/uptime.sh"
+
+)
+
+(defwidget battery[classname batteryindicator]
+	(box 
+		:class "batterycontainer"
+		:orientation "h"
+		:space-evenly false
+		:spacing 20
+		(overlay
+			(progress
+			:class classname
+			:value {EWW_BATTERY.BAT0.capacity > 95 ? 100 : EWW_BATTERY.BAT0.capacity}
+			)
+			(box	
+				:class "battery-percent"	
+				:halign "start"
+				"${EWW_BATTERY.BAT0.capacity}%"	
+			)
+			(box	
+				:class "battery-indicator"	
+				:halign "end"
+				"${EWW_BATTERY.BAT0.status == "Charging"?"${batteryindicator}󱐋":"${batteryindicator}"}"
+			)
+		)
+		
+		(box
+			:class "batteryuptime"
+			:orientation "v"
+			(label
+				:text "Uptime"
+				:truncate true
+				:limit-width 10
+				:wrap-mode "Top"
+			)
+			(label
+				:text uptime
+				:truncate true
+				:limit-width 10
+				:wrap-mode "Top"
+			)
+
+		)
+	)
+)
+
+(defpoll cpu_temp
+	:interval "1s"
+	"./eww-scripts/cpu-temp.sh"
+)
+
+(defpoll network
+	:interval "100s"
+	"./eww-scripts/get-network.sh"
+)
+(defwidget systemmonitor[]
+	(box :class "systemmonitorcontainer"
+		(stack :same-size true :transition "slideup" :selected {EWW_TIME%10 >4?1:0}
+		(box :class "cpu"
+			:orientation "v"
+			:halign "start"
+			"  ${round(EWW_CPU.avg,2)}"
+			"  ${round(EWW_RAM.used_mem/1024/1024/1024,2)}"
+			"  ${cpu_temp}C"
+			
+		)      
+		(box :class "network"
+			:orientation "v"
+			:halign "start"
+        (box
+          (tooltip
+            (box
+              :style "background-color:#140c3b;color:white;border-radius:5px;"
+              "${network}"
+            )
+            (label
+              :text "${network}"
+              :limit-width 8
+            )
+          )
+        )
+			(box "  ${round(EWW_NET.wlo1.NET_UP/1024,0)}kb")
+			(box "  ${round(EWW_NET.wlo1.NET_UP/1024,0)}kb")
+			;;(box "  ${round(EWW_NET.wlan0.NET_UP/1024,0)}kb");;for iwd
+			;;(box "  ${round(EWW_NET.wlan0.NET_UP/1024,0)}kb");;for iwd
+
+		)
+		)
+		
+		
+			
+	)
+	
+)
+
+(defpoll current_brightness
+	:interval "1s"
+	"brightnessctl g"
+)
+
+(defpoll current_volume
+	:interval "1s"
+	"./eww-scripts/get-volume.sh"
+)
+
+(defwidget sliders[]
+	(box :class "sliderscontainer"
+		:space-evenly true
+		:orientation "h"
+		(overlay
+		
+		(scale :class "slider-brightness"
+			:orientation "v"
+			:flipped true
+			:width 20
+			:value {current_brightness/255*100}
+			:onchange "brightnessctl set {}%"
+			
+		)
+		(box 	:class "brightness-icon"
+			" "
+		)
+		)
+		(overlay
+		(scale :class "slider-volume"
+			:orientation "v"
+			:flipped true
+			:value {current_volume*100}
+			:onchange "wpctl set-volume @DEFAULT_SINK@ {}%"
+		)
+		(box 	:class "volume-icon"
+			" "
+		)
+		)
+		(overlay
+			(scale :class "slider-microphone"
+				:orientation "v"
+				:flipped true
+				:value {current_volume*100}
+				:onchange "wpctl set-volume @DEFAULT_SINK@ {}%"
+			)
+			(box 	
+				:class "mic-icon"
+				" "
+			)
+		)
+	)
+)
+
+;;player controls
+(defpoll musicinfo
+	:interval "1s"
+	"./eww-scripts/mpris.sh"
+)
+
+(defwidget player[]
+	(box :class "playercontainer"
+		:orientation "h"
+		:space-evenly false
+		(box    :class "playerimage"
+			 :style "background-image:url(\'${musicinfo.url}\')"
+			 :width 90
+			 :height 90
+		)
+		(box
+			:orientation "v"
+				(box	
+					:class "playertitle"
+					"${substring(musicinfo.title,0,18)}"
+				)
+				(box    :class "playerctlcontrols"
+					:orientation "h"
+					(button :class "prev-bt"
+						:onclick "playerctl previous"
+						" "
+					)
+					(button :class "play-bt"
+						:onclick "playerctl play-pause"
+						" "
+					)
+					(button :class "next-bt"
+						:onclick "playerctl next"
+						" "
+					)
+				
+				)
+			(scale :class "playercontrolslider"
+				:orientation "h"
+				:value {(musicinfo.position)}
+				:min 0
+				:max {(musicinfo.length)/1000000}
+				:onchange "playerctl position {}"
+				:height 10
+			)
+		)
+	)
+)

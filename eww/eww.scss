@@ -1,0 +1,344 @@
+*{
+   background:none; 
+   font-family: 'JetBrains Mono', 'JetBrains Mono Nerd Font', monospace;
+   
+}
+box{
+     background:none;
+}
+
+.powermenucontainer{
+ border-radius:20px;
+ border:2px solid beige;
+}
+
+.powermenucontainerleft{
+ font-size:16px;
+ border-top-left-radius:20px;
+ border-bottom-left-radius:20px;
+  padding-top : 10px;
+  background-color:#386641;
+  color:beige;
+}
+
+.powermenucontainerright{
+border-top-right-radius:20px;
+ border-bottom-right-radius:20px;
+    padding: 20px;
+  background-color: #F2E8CF;
+  color:black;
+
+}
+
+.powermenuwidgetitem{
+  all:unset;
+ text-decoration:none;
+ padding:10px;
+ border-bottom:1px solid beige;
+ &:focus{
+   background-color:#8db09f;
+ }
+  &:hover{
+   background-color:#8db09f;
+ }
+}
+
+.powermenusearchbar{
+}
+
+.powermenusearchinput{
+  all:unset;
+  border: 2px solid beige;
+  margin:10px;
+  border-radius:10px;
+  padding:12px;
+}
+
+.powermenusearchbutton{
+  all:unset;
+  margin-right:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  border-radius:10px;
+  border: 2px solid beige;
+  padding: 10px;
+
+}
+
+.timewidgetcontainer{
+ margin:10px;
+ color:#BC4749;
+ font-weight:bold;
+}
+.time{
+  color:#BC4749;
+  font-weight:bold;
+  font-size:50px;
+}
+
+
+
+.progresstime{
+  trough{
+  margin-bottom:8px;
+  background-color:#F2E8CF;
+  border-radius:2px;
+  border:none;
+  color:black;
+  progress{
+    background-color:#BC4749;
+    border:none;
+  }
+}
+  }
+
+ 
+
+.weatherwidgetcontainer{
+  background-color:#BC4749;
+  border-radius:10px;
+  padding-left:5px;
+}
+.temperature{
+  color:#F2E8CF;
+  font-size:50px;
+}
+.weatheradditional{
+  margin-left:25px;
+  margin-top:20px;
+  margin-bottom:20px;
+  font-size:12px;
+  font-weight:bold;
+  color: #F2E8CF;
+}
+
+.batterycontainer{
+  margin-top:10px;
+  color:black;
+}
+
+.batteryprogress-full{
+  trough{
+    min-height:70px;
+    background-color:#397d5d;
+    border-radius:10px;
+    progress{
+    min-height:70px;
+    background-color:#397d5d;
+    border-radius:10px;
+    border:none;
+    }
+  }
+}
+
+.batteryprogress-notfull{
+  trough{
+    min-height:70px;
+    background-color:#1a5296;
+    border-radius:10px;
+    progress{
+    min-height:70px;
+    background-color:#2577db;
+    border-radius:10px;
+    border:none;
+    }
+  }
+}
+
+.batteryprogress-low{
+  trough{
+    min-height:70px;
+    background-color:#a38e18;
+    border-radius:10px;
+    progress{
+    min-height:70px;
+    background-color:#dec223;
+    border-radius:10px;
+    border:none;
+    }
+  }
+}
+
+.batteryprogress-critical{
+  trough{
+    min-height:70px;
+    background-color:#851b15;
+    border-radius:10px;
+    progress{
+    min-height:70px;
+    background-color:#b8221a;
+    border-radius:10px;
+    border:none;
+    }
+  }
+}
+
+
+
+.battery-percent{
+  padding:10px;
+  color:black;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.battery-indicator{
+  padding:10px;
+  color:black;
+  font-size:25px;
+}
+
+.batteryuptime{
+  background-color:black;
+  border-radius:10px;
+  color:white;
+  font-size:15px;
+  padding:10px;
+  font-weight:bold;
+  border-left: 9px solid purple;
+}
+
+.systemmonitorcontainer{
+  background-color:#140c3b;
+  color:white;
+  border-radius:10px;
+  margin-top:10px;
+  padding:15px;
+  font-weight:bold;
+  border-left:9px solid #6eb06b;
+}
+
+.sliderscontainer{
+  margin-top:10px;
+  margin-left:10px;
+  background-color:#18230F;
+  border-radius:10px;
+  padding:5px;
+  border-left:8px solid #5c916c;
+}
+
+scale{
+  all:unset;
+}
+
+.slider-brightness{
+  all:unset;
+  border-radius:10px;
+  trough{
+    all:unset;
+    background-color:white;
+    min-width: 20px;
+    border-radius:10px;
+  }
+  highlight{
+    all:unset;
+    background-color:#1F7D53;
+    border-radius:10px;
+  }
+}
+
+.brightness-icon{
+  margin-top:50px;
+  margin-left:4px;
+}
+.volume-icon{
+  margin-top:50px;
+  margin-left:2px;
+}
+.mic-icon{
+  margin-top:50px;
+  margin-left:10px;
+}
+
+.slider-volume{
+  all:unset;
+  border-radius:10px;
+  font-weight:bold;
+  trough{
+    all:unset;
+    background-color:white;
+    min-width: 20px;
+    border-radius:10px;
+  }
+  highlight{
+    all:unset;
+    background-color:#A27B5C;
+    border-radius:10px;
+  }
+}
+
+.slider-microphone{
+  all:unset;
+  border-radius:10px;
+  font-weight:bold;
+  trough{
+    all:unset;
+    background-color:white;
+    min-width: 20px;
+    border-radius:10px;
+  }
+  highlight{
+    all:unset;
+    background-color:#de7a73;
+    border-radius:10px;
+  }
+}
+.playercontainer{
+  margin-top:10px;
+  border-radius:10px;
+  min-width:90px;
+  background-color: #FF3CAC;
+  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+
+}
+
+.playerimage{
+  color:black;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius:10px;
+  margin-right:15px;
+  }
+.playertitle{
+  font-weight:bold;
+  color:white;
+}
+
+
+.prev-bt{
+  all:unset;
+  color:white;
+}
+.play-bt{
+  all:unset;
+  color:white;
+}
+.next-bt{
+  all:unset;
+  color:white;
+}
+
+.playercontrolslider{
+  all:unset;
+  border-radius:10px;
+  font-weight:bold;
+  trough{
+    all:unset;
+    background-color:blue;
+    border-radius:10px;
+  }
+  highlight{
+    all:unset;
+    background-color:white;
+    border-radius:10px;
+    min-height:5px;
+
+  }
+  
+}
+
+
+
+
+
