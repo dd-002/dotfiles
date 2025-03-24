@@ -1,0 +1,12 @@
+lazy-lock.json
+.luarc.json
+btop/
+dconf/
+dolphinrc
+filetypesrc
+kde.org/
+vlc/
+systemd/
+pulse/
+pavucontrol.ini
+
