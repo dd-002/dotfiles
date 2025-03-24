@@ -9,4 +9,10 @@ vlc/
 systemd/
 pulse/
 pavucontrol.ini
+kitty/ 
+mimeapps.list
+rncbc.org/
+session/
+vlc/
+trashrc
 
