@@ -8,22 +8,22 @@ box{
 }
 
 .powermenucontainer{
- border-radius:20px;
+ border-radius:10px;
  border:2px solid beige;
+ margin:10px;
 }
 
 .powermenucontainerleft{
  font-size:16px;
- border-top-left-radius:20px;
- border-bottom-left-radius:20px;
+ border-top-left-radius:10px;
+ border-bottom-left-radius:10px;
   padding-top : 10px;
   background-color:#386641;
   color:beige;
 }
 
 .powermenucontainerright{
-border-top-right-radius:20px;
- border-bottom-right-radius:20px;
+border-radius:10px;
     padding: 20px;
   background-color: #F2E8CF;
   color:black;
